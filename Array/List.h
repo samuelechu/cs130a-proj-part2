@@ -8,20 +8,9 @@ class List {
  public:
   
   // Default constructor
- List(): size(0) { head = NULL;}
-  
-  
-struct Node {
+ List(): size(0), arrSize(1) { arr = new T[1]; }
 
-    T value;
-    Node *next;
-    Node *prev;
-    Node(T t, Node* n, Node * p) : value(t), next(n), prev(p) {}
-
-};
-
-  
-  ~List() { deleteList(head); }
+  ~List() { delete[] arr; }
 
 void insert (int pos, const T & item);
 /* Inserts the item right before position pos, growing the list by
@@ -43,31 +32,21 @@ T const & get (int pos) const;
 /* returns the item at position pos, not changing the list.
 pos must be between 0 and the current length of the list minus 1*/
 
+ void printList(){
+   for(int i = 0; i < size; i++)
+     std::cout<< arr[i] << std::endl;
+ }
  
-  
+int getSize(){ return size; }
 
-  void printList();
-  void deleteList(Node *n);
-  
-  int getSize() const{ return getSize(head); }
-
-  Node* getHead(){return head;}
-  
-  
- private:
-
+private:
+  T * arr;
   int size;
-  Node* head;
+  int arrSize;
 
-  
-  void deleteNode(Node *n);
-  
-  
-  int getSize(const Node *n) const;
-  
-  Node* getNode(int pos) const;
-  
+
+
 };
-
 #include "List.cpp"
 #endif
+

@@ -80,7 +80,7 @@ void List<T>::deleteNode(List<T>::Node *n){
 
 
 template < typename T>
-typename List<T>::Node* List<T>::getNode(int pos) const{
+typename List<T>::Node* List<T>::getNode(int pos){
 
   List<T>::Node *n = head;
 
@@ -110,15 +110,16 @@ void List<T>::set(int pos, const T & item){
 template <typename T>
 T const & List<T>::get(int pos) const{
   
-  /*if(pos < 0 || pos > size-1)
-   return nullptr;*/
+ if(pos < 0 || pos > size-1)
+    return nullptr;
 
  List<T>::Node *n = getNode(pos);
 
- return n->value;
- 
+  if(n){
+    return n->value;
+  }
 
-  // return nullptr;
+  return nullptr;
 }
 
 

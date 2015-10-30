@@ -65,7 +65,7 @@ pos must be between 0 and the current length of the list minus 1*/
   
   int getSize(const Node *n) const;
   
-  Node* getNode(int pos) const;
+  Node* getNode(int pos);
   
 };
 
