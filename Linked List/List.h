@@ -49,22 +49,16 @@ pos must be between 0 and the current length of the list minus 1*/
   void printList();
   void deleteList(Node *n);
   
-  int getSize() const{ return getSize(head); }
+  int getSize() const{ return size; }
 
   Node* getHead(){return head;}
-  
+  void deleteNode(Node *n);
   
  private:
 
   int size;
   
   Node* head;
-
-  
-  void deleteNode(Node *n);
-  
-  
-  int getSize(const Node *n) const;
   
   Node* getNode(int pos) const;
   

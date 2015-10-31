@@ -138,16 +138,6 @@ void List<T>::deleteList(List<T>::Node *n){
 }
 
 
-template < typename T >
-int List<T>::getSize(const List<T>::Node *n) const {
-  
-  if(!n)
-    return 0;
-
-  int result = getSize(n->next);
-
-  return result + 1;
-}
 
 template < typename T >
 void List<T>::printList() {
