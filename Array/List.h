@@ -6,9 +6,9 @@
 template < typename T >
 class List {
  public:
-  
+  int curPos;
   // Default constructor
- List(): size(0), arrSize(1) { arr = new T[1]; }
+ List(): size(0), arrSize(1) {curPos = 0;  arr = new T[1]; }
 
   ~List() { delete[] arr; }
 

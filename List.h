@@ -6,9 +6,9 @@
 template < typename T >
 class List {
  public:
-  
+  int curPos;
   // Default constructor
- List(): size(0) { head = NULL;}
+ List(): size(0) { curPos = 0; head = NULL;}
   
   
 struct Node {
@@ -57,6 +57,7 @@ pos must be between 0 and the current length of the list minus 1*/
  private:
 
   int size;
+  
   Node* head;
 
   

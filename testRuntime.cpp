@@ -87,5 +87,7 @@ int main(){
 
 
   ASSERT_EQUALS(10000,o.getSize());
+
+  l.curPos = 2;
    
 }
