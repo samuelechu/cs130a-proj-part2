@@ -80,7 +80,7 @@ void List<T>::deleteNode(List<T>::Node *n){
 
 
 template < typename T>
-typename List<T>::Node* List<T>::getNode(int pos){
+typename List<T>::Node* List<T>::getNode(int pos) const{
 
   List<T>::Node *n = head;
 
