@@ -1,14 +1,16 @@
-Username: Andrew
-Password: Myers
-Full Name:Andrew Myers
-Occupation: software developer
-Wall Posts:
-Username: Sam
-Password: Sammy
-Full Name:Samuel Chu
-Occupation: software developer
-Wall Posts:
+Andrew
+Myers
+Andrew Myers
+software developer
+2
+
+Sam
+Sammy
+Samuel Chu
+software developer
+1
 Sam
 7:30 PM
  Hello World!
+
 

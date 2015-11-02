@@ -5,10 +5,11 @@
 using namespace std;
 
 void Wall::insert(string c, string t, string u){
-  WallPost w = WallPost(c, t, u);
+	
+  WallPost* w = new WallPost(c, t, u);
 
-  wallPosts.insert(0,w);
-
+  wallPosts.insert(wallPosts.getSize(),*w);
+  //cout<< wallPosts.getHead()->value.getTimePosted();
 }
 
 void Wall::loadPosts(string posts){

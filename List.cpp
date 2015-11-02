@@ -4,6 +4,43 @@
 #include "List.h"
 using namespace std;
 
+
+template <typename T>
+void List<T>::insert(int pos, T * item){
+  if(pos < 0 || pos > size)
+    return;
+
+  List<T>::Node *newNode = new Node(*item, NULL, NULL);
+
+  if(pos == 0){ //insert at head or empty list
+    
+    if(head)
+      head->prev = newNode;
+
+    newNode->next = head;
+    head = newNode;
+
+      
+  }
+
+  
+  else {
+    List<T>::Node *n = getNode(pos - 1);
+    if(n->next){
+      n->next->prev = newNode;
+    }
+    
+    
+    newNode->next = n->next;
+    newNode->prev = n;
+    n->next = newNode;
+    
+  }
+      
+
+  size++;
+}
+
 template <typename T>
 void List<T>::insert(int pos, const T & item){
   if(pos < 0 || pos > size)
@@ -56,9 +93,32 @@ void List<T>::remove(int pos){
   }
 }
 
+template < typename T>
+typename List<T>::Node* List<T>::find(const T& v){
+  Node *n = head;
+  Node *found = NULL;
+  
+  while(n){
+    if(n->value.getUsername() == v){
+      found = n;
+      return found;
+    }
+
+    n = n->next;
+
+  }
+
+  return found;
+
+
+}
+
 template < typename T >
 void List<T>::deleteNode(List<T>::Node *n){
-  if(!n->next){
+	if(!n->prev&&!n->next){
+		delete n;
+	}
+  if(!n->next&&n->prev){
     n->prev->next = NULL;
     delete n;
   }
@@ -127,13 +187,12 @@ T const & List<T>::get(int pos) const{
 
 template < typename T >
 void List<T>::deleteList(List<T>::Node *n){
-
-  if(n == NULL)
-    return;
-
-  deleteList(n -> next);
-
-  delete n;
+	List<T>::Node*current = n;
+  while(n){
+	  n = n->next;
+	  delete current;
+	  current = n;
+  }
   return;
 }
 

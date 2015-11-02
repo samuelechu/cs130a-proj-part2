@@ -21,7 +21,7 @@ class WallPost{
 
   string getPost(){
 
-    string post = username + "\n" + timePosted + "\n " + contents + "\n\n";
+    string post = username + "\n" + timePosted + "\n" + contents + "\n\n";
 
     return post;
 

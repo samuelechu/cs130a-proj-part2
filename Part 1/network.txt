@@ -2,7 +2,7 @@ Sam
 Sammy
 Samuel Chu
 software developer
-Sam
+0
 7:30 PM
 Hello World!
 
@@ -10,3 +10,4 @@ Andrew
 Myers
 Andrew Myers
 software developer
+1

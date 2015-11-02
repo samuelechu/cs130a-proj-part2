@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "WallPost.h"
-#include "List.h"
+#include "LinkedList.h"
 using namespace std;
 
 class Wall{

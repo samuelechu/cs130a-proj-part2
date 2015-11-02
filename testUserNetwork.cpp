@@ -13,10 +13,11 @@ int main(){
    UserNetwork u;
    
 
-   u.addUser("Sam", "Sammy", "Samuel Chu", "software developer");
-   u.addUser("Sam", "Sammy", "Samuel Chu", "software developer");
-   u.addUser("Andrew", "Myers", "Andrew Myers", "software developer");
-   u.addPost("Sam","Hello World!", "7:30 PM");
+   u.addUser("Sam", "pass123", "Samuel Chu", "software developer");
+   u.addUser("Sam", "pass123", "Samuel Chu", "software developer");
+   u.addUser("Andrew", "pas123", "Andrew Myers", "software developer");
+   u.addPost("Sam","Sam","Hello Humpty Dumpty!!", "7:30 PM");
+   u.addPost("Sam","Andrew","Hi there bubby!", "9:99 AM");
    cout << "Current List: \n";
    u.printUsers();
    u.saveUsers();

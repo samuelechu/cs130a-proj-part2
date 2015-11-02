@@ -9,17 +9,17 @@ using namespace std;
 
 class User{
  public:
-  /*User(Wall w, string p, string rn, string occ): password(p), realName(rn), occupation(occ){
-    username = w.getUsername();
-  }*/
+    
 
 
- User(string u, string p, string rn, string occ): username(u),  password(p), realName(rn), occupation(occ){
+ User(string u, string p, string rn, string occ, int id): username(u),  password(p), realName(rn), occupation(occ), userID(id){
     wall.setUsername(u);
+    //loadFriends(); 
   }
 
- User(string u, string p, string rn, string occ, string wall): username(u),  password(p), realName(rn), occupation(occ){
+ User(string u, string p, string rn, string occ, string wall, int id): username(u),  password(p), realName(rn), occupation(occ), userID(id){
     // wall.setUsername(u);
+    //loadFriends();
   }
 
   User(string input){
@@ -34,6 +34,8 @@ class User{
     this->realName = word;
     getline(iss, word, '\n');
     this->occupation = word;
+    getline(iss, word, '\n');
+    this->userID = stoi(word);
 
     string date;
     
@@ -54,8 +56,9 @@ class User{
   string getInfo(){
     return "Username: " + username + "\nPassword: " + password + "\nFull Name:" + realName + "\nOccupation: " + occupation + "\nWall Posts:\n" + wall.getWall();
   }
- 
   
+  //void loadFriends();
+
   string getUsername(){return username;}
   void setUsername(string &u){username = u;}
   
@@ -68,15 +71,19 @@ class User{
   string getOccupation(){return occupation;}
   void setOccupation(string &occ){occupation = occ;}
 
+  int getID(){return userID;}
+  void setID(int id){userID = id;}
+
   void addWallPost(string c, string t){wall.insert(c, t, username);}
   void deleteWallPost(int index) { wall.remove(index);};
  private:
 
+  LinkedList<User> friends;
   Wall wall;
   string username;
   string password;
   string realName;
   string occupation;
-
+  int userID;
 };
 #endif

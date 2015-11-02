@@ -1,6 +1,7 @@
 #include "List.h"
 
 #include <iostream>
+#include <fstream>
 #include "tddFuncs.h"
 #include "UserNetwork.h"
 
@@ -11,9 +12,12 @@ int main(){
    cout << "Running tests from: " << __FILE__ << endl;
 
    UserNetwork u;
-   
+   u.loadFriends();
+   u.addFriends(1,3);
+   u.addFriends(2,1);
+   u.addFriends(4,5); 
+   u.saveFriends(); 
    u.loadUsers();
-   
    cout << "Current List: \n";
    u.printData();
 

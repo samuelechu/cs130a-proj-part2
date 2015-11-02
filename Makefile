@@ -7,7 +7,7 @@ CXX=clang++
 CXXFLAGS = -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-unused-private-field
 
 
-BINARIES=testInsert testRuntime testUserNetwork testLoadUsers
+BINARIES=testInsert testRuntime testUserNetwork testLoadUsers Launch
 
 all: ${BINARIES}
 
@@ -20,6 +20,9 @@ testRuntime: testRuntime.o List.o tddFuncs.o
 testUserNetwork: testUserNetwork.o List.o UserNetwork.o User.o Wall.o WallPost.o tddFuncs.o
 	${CXX} $^ -o $@
 
+Launch: Launch.o List.o UserNetwork.o User.o Wall.o WallPost.o
+	${CXX} $^ -o $@
+
 testLoadUsers: testLoadUsers.o List.o UserNetwork.o User.o Wall.o WallPost.o tddFuncs.o
 	${CXX} $^ -o $@
 
@@ -28,6 +31,7 @@ tests: ${BINARIES}
 	./testRuntime
 	./testUserNetwork
 	./testLoadUsers
+	./Launch
 
 clean:
 	/bin/rm -f ${BINARIES} *.o *~

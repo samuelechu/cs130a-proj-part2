@@ -6,7 +6,7 @@
 #include <fstream>
 #include "User.h"
 #include "Wall.h"
-#include "LinkedList.h"
+#include "List.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ class UserNetwork{
   }
 
   void addUser(string u, string p, string rn, string occ){
-    User newUser = User(u,  p, rn, occ);
+    User newUser = User(u,  p, rn, occ, getNextID());
     addUser(newUser);
   }
    
@@ -28,12 +28,12 @@ class UserNetwork{
   void loadUsers();
   void saveUsers();
   void addPost(string u, string post, string time);
-  
+  int getNextID();
   
   int getSize(){return users.getSize();}
 
  private:
-  LinkedList<User> users;
+  List<User> users;
   
 
   void addUser(User& user);

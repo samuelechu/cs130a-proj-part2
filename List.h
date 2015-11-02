@@ -23,6 +23,8 @@ struct Node {
   
   ~List() { deleteList(head); }
 
+  void insert(int pos, T * item);
+
 void insert (int pos, const T & item);
 /* Inserts the item right before position pos, growing the list by
 pos must be between 0 and the current length of the list.
@@ -38,6 +40,7 @@ void set (int pos, const T & item);
 Does not change the length of the list.
 pos must be between 0 and the current length of the list minus 1*/
 
+Node* find(const T & item);
 
 T const & get (int pos) const;
 /* returns the item at position pos, not changing the list.

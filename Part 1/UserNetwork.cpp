@@ -16,9 +16,9 @@ void UserNetwork::loadUsers(){
     input += (current + "\n");
     cout<<input;
     if (myfile.peek() == '\n'){
-    User newUser = User(input);
+     User newUser = User(input);
     
-    users.insert(newUser);
+    users.insert(0,newUser);
     input = "";
     }
     
@@ -29,6 +29,15 @@ void UserNetwork::loadUsers(){
   
 }
 
+int UserNetwork::getNextID(){
+  LinkedList<User>::Node * n = users.getHead();
+  if(!n)
+    return 0;
+  while(n->next){
+    n = n->next;
+  }
+  return n->value.getID() + 1;
+}
   
 void UserNetwork::addUser(User& user){
 

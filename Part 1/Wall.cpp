@@ -7,7 +7,7 @@ using namespace std;
 void Wall::insert(string c, string t, string u){
   WallPost w = WallPost(c, t, u);
 
-  wallPosts.insert(0,w);
+  wallPosts.insert(w);
 
 }
 
@@ -24,7 +24,7 @@ LinkedList<WallPost>::Node *head = wallPosts.getHead();
 void Wall::remove(int index){
 
 
-  wallPosts.remove(index);
+  wallPosts.deleteAtNdx(index);
   
 
 }
