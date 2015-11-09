@@ -112,7 +112,7 @@ void loginUser(){
   while(invalid){
   cout << "Enter username." << endl;
   cin >> username;
-  List<User>::Node *theUser = theNetwork.find(username);
+  User *theUser = theNetwork.find(username);
   if(theUser == NULL){
     cout << "User does not exist!" << endl;
     invalid = true;
@@ -124,13 +124,13 @@ void loginUser(){
     while(!passCheck){
       cout << "Enter password for " << username << endl;
       cin >> password;
-      if(password.compare(theUser->value.getPassword()) != 0){
+      if(password.compare(theUser->getPassword()) != 0){
         passCheck = false;
         cout << "Password incorrect!" << endl;
       }
       else{
         passCheck = true;
-        currentUser = theUser->value;
+        currentUser = *theUser;
 		currentUser.printWall();
         openUserMenu();
       }
@@ -187,7 +187,7 @@ void handleCreatePost(){
      string friendName;
 
       cin >> friendName;
-	  List<User>::Node *theUser = theNetwork.find(friendName);
+	  User *theUser = theNetwork.find(friendName);
 	  if(theUser == NULL){
 	    cout << "User does not exist!" << endl;
 	    invalid = true;
@@ -244,7 +244,7 @@ void handleSettingsSelection(char selection){
     if(selection == '2')
 	  handleChangePassword();
 	if(selection == '3')
-		theNetwork.getFriends(currentUser.getID());
+		theNetwork.printFriends(currentUser.getID());
 }
 
 void handleChangeUsername(){

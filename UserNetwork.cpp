@@ -2,6 +2,7 @@
 #include <istream>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "UserNetwork.h"
 
 
@@ -9,25 +10,19 @@ using namespace std;
 
 
 void UserNetwork::saveUsers(){
-
-
- List<User>::Node *n = users.getHead();
  string s = "";
-    while(n){
-      s += n->value.getSaveInfo();
-	  cout<<"nope"<<endl;
-      n = n->next;
-    }
+	for( unsigned i = 0; i <users.size(); ++i ){
+		 s+= users[i].getSaveInfo();
+	 }
+ 
 
     ofstream myFile;
 	myFile.open("netwerk.txt");
     myFile << s;
 	myFile.close();
-  
 }
 
 void UserNetwork::loadUsers(){
-	cout<<"Got hear";
   ifstream myfile;
   myfile.open("network.txt");
   string input;
@@ -35,12 +30,10 @@ void UserNetwork::loadUsers(){
   while(getline(myfile, current, '\n')){
     input += (current + "\n");
     if (myfile.peek() == '\n'){
-     User * newUser = new User(input);
-	 cout<< newUser->getSaveInfo();
-    users.insert(users.getSize(), *newUser);
-	//cout << users.getHead()->value.getSaveInfo();
-	getline(myfile,input,'\n');
-    input = "";
+    	User * newUser = new User(input);
+    	users.push_back(*newUser);
+		getline(myfile,input,'\n');
+    	input = "";
     }
     
   }
@@ -81,33 +74,28 @@ void UserNetwork::addFriends(int id1, int id2){
   friendTable[id2][id1] = 1;
 }
 int UserNetwork::getNextID(){
-  return users.getSize();
+  return users.size();
 }
   
   
-List<User>::Node * UserNetwork::find(string username){
+User* UserNetwork::find(string username){
 
-	List<User>::Node* n = users.getHead();
-	while(n){
-		if(n->value.getUsername().compare(username) == 0){
-			return n;
+
+	for( unsigned i = 0; i <users.size(); ++i ){
+			if(users[i].getUsername().compare(username) == 0)
+				return &users[i];
 		}
-		n = n->next;
-	}
 return NULL;		
 
 
 		
 }  
-List<User>::Node * UserNetwork::findByID(int ID){
+User* UserNetwork::findByID(int ID){
 
-	List<User>::Node* n = users.getHead();
-	while(n){
-		if(n->value.getID() == ID){
-			return n;
+	for( unsigned i = 0; i <users.size(); ++i ){
+			if(users[i].getID() == ID)
+				return &users[i];
 		}
-		n = n->next;
-	}
 return NULL;		
 
 
@@ -115,80 +103,52 @@ return NULL;
 }  
 void UserNetwork::addUser(User& user){
 
-  List<User>::Node *n = users.getHead();
-
-    while(n){
-
-      if(n->value.getUsername().compare(user.getUsername()) == 0) 
-	return;
-
-      n = n->next;
-
-    }
-
-    users.insert(users.getSize(),user);
-
-
-
+	for( unsigned i = 0; i <users.size(); ++i ){
+	        if(users[i].getUsername().compare(user.getUsername()) == 0) 
+	  		  return;
+		}
+    users.push_back(user);
 }
 
+void UserNetwork::printFriends(int id){
+	for(int i = 0; i<49; i++){
+		if(friendTable[id][i] == 1){
+			cout<<findByID(i)->getRealName()<<endl;
+		}
+	}
+}
 
-void UserNetwork::addPost(string writer, string u, string post, string time){
-    List<User>::Node *n = users.getHead();
-
-      while(n){
-
-        if(n->value.getUsername().compare(u) == 0){
-
-
-            n->value.addWallPost(post, time, writer);
-            return;
-        }
-        n = n->next;
-
-      }
+void UserNetwork::addPost(string writer, string u, string post, string t){
+	for( unsigned i = 0; i <users.size(); ++i ){
+		if(users[i].getUsername().compare(u) == 0){
+			users[i].addWallPost(post, t, writer);
+			return;
+		}
+	}
 }
 
 
 void UserNetwork::printUsers(){
 
-
- List<User>::Node *n = users.getHead();
-
-    while(n){
-      cout<< n->value.getUsername() << "\n";
-      n = n->next;
-    }
-
-
+	for( unsigned i = 0; i <users.size(); ++i ){
+		cout << users[i].getUsername() << "\n";
+	}
 }
 
 void UserNetwork::printData(){
-   List<User>::Node *n = users.getHead();
-
-   while(n){
-      cout<< n->value.getInfo() << "\n";
-      n = n->next;
-    }
+	for( unsigned i = 0; i <users.size(); ++i ){
+		cout << users[i].getInfo() << "\n";
+	}
   
 }
 
 
 
 void UserNetwork::deleteUser(string u){
-  
- List<User>::Node *n = users.getHead();
-  int i = 0;
-    while(n){
-      
-  cout<<users.getSize()<<endl;
-      if(n->value.getUsername().compare(u) == 0){
-      users.remove(i);
-	return;
-      }
-      i++;
-      n = n->next;
-    }
-
-
+	for( unsigned i = 0; i <users.size(); ++i ){
+		if(users[i].getUsername().compare(u) == 0){
+			users.erase(users.begin()+i);
+			return;
+		}
+	}
 }

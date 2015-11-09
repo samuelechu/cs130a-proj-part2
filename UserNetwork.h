@@ -4,9 +4,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "User.h"
-#include "Wall.h"
-#include "List.h"
+#include "Wall.h"\
 
 using namespace std;
 
@@ -31,16 +31,16 @@ class UserNetwork{
   void saveFriends();
   void addPost(string writer, string u, string post, string time);
   int getNextID();
-  List<User>::Node* find(string username);
-  List<User>::Node* findByID(int id);
-  string getFriends(int id)
+  User* find(string username);
+  User* findByID(int id);
+  void printFriends(int id);
   
   
   void addFriends(int id1, int id2);
-  int getSize(){return users.getSize();}
+  int getSize(){return users.size();}
 
  private:
-  List<User> users;
+  std::vector<User> users;
   
   int friendTable[50][50] = {{0}};
 

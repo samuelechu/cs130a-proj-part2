@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "Wall.h"
 using namespace std;
 
@@ -84,7 +85,7 @@ class User{
   
  private:
 
-  List<User> friends;
+  std::vector<User> friends;
   Wall wall;
   string username;
   string password;
