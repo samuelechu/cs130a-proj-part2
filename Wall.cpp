@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Wall.h"
 
 using namespace std;
@@ -7,12 +8,10 @@ using namespace std;
 void Wall::insert(string c, string t, string u){
 	
   WallPost* w = new WallPost(c, t, u);
-
-  wallPosts.insert(wallPosts.getSize(),*w);
-  //cout<< wallPosts.getHead()->value.getTimePosted();
+  wallPosts.push_back(*w);
 }
 
-void Wall::loadPosts(string posts){
+/*void Wall::loadPosts(string posts){
 List<WallPost>::Node *head = wallPosts.getHead();
 
  wallPosts.deleteList(head);
@@ -20,24 +19,24 @@ List<WallPost>::Node *head = wallPosts.getHead();
   
 
   
-}
+ }*/
 
 void Wall::remove(int index){
 
 
-  wallPosts.remove(index);
+  wallPosts.erase(wallPosts.begin() + index);
   
 
 }
 
 string Wall::getWall(){
-  List<WallPost>::Node *n = wallPosts.getHead();
 
   string out = "";
-  
-  while(n){
-    out += n->value.getPost();
-    n = n->next;
+  std::vector<WallPost>::iterator it;
+
+  for(it = wallPosts.begin(); it != wallPosts.end(); it++){
+    int i = std::distance( wallPosts.begin(), it );
+    out += wallPosts[i].getPost();
   }
 
   return out;
@@ -46,10 +45,14 @@ string Wall::getWall(){
 
 void Wall::printWall(){
 
-  List<WallPost>::Node *n = wallPosts.getHead();
-  
-  while(n){
-    n->value.printPost();
-    n = n->next;
+
+
+  std::vector<WallPost>::iterator it;
+
+  for(it = wallPosts.begin(); it != wallPosts.end(); it++){
+    int i = std::distance( wallPosts.begin(), it );
+    wallPosts[i].printPost();
   }
+
+ 
 }

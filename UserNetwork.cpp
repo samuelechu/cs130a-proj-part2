@@ -67,6 +67,7 @@ int input;
       }
    }
 file.close();
+ 
 
 }
 void UserNetwork::addFriends(int id1, int id2){

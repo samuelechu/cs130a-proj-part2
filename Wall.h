@@ -3,8 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 #include "WallPost.h"
-#include "List.h"
 using namespace std;
 
 class Wall{
@@ -24,7 +24,7 @@ class Wall{
 
   }
 
-  void loadPosts(string posts);
+  //  void loadPosts(string posts);
   void insert(string c, string t, string u);
   void remove(int index);
 
@@ -37,7 +37,7 @@ class Wall{
   
  private:
 
-  List<WallPost> wallPosts;
+  std::vector<WallPost> wallPosts;
   string username;
 
 };

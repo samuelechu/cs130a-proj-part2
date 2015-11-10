@@ -6,7 +6,7 @@
 #include <fstream>
 #include <vector>
 #include "User.h"
-#include "Wall.h"\
+#include "Wall.h"
 
 using namespace std;
 
@@ -21,7 +21,10 @@ class UserNetwork{
     addUser(newUser);
   }
    
+ ~UserNetwork(){
+  }
 
+  
   void deleteUser(string u);
   void printData();
   void printUsers();
@@ -42,7 +45,7 @@ class UserNetwork{
  private:
   std::vector<User> users;
   
-  int friendTable[50][50] = {{0}};
+  int friendTable[51][51] = {{0}};
 
   void addUser(User& user);
 };
