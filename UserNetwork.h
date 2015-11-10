@@ -45,7 +45,7 @@ class UserNetwork{
  private:
   std::vector<User> users;
   
-  int friendTable[51][51] = {{0}};
+  int friendTable[50][50] = {{0}};
 
   void addUser(User& user);
 };

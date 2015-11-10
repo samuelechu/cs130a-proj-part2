@@ -60,7 +60,7 @@ int input;
         file>>input;
 	friendTable[i][j] = input;
 	j++;
-	if(j >= 49){
+	if(j >= 50){
 	   j=0;
 	   i++;
 	}
