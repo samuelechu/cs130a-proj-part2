@@ -82,10 +82,14 @@ class User{
   void deleteWallPost(int index) { wall.remove(index);};
   
   void printWall(){wall.printWall();};
+
+  void addFriend(User * friend){
+    friends.push_back(friend);
+  }
   
  private:
 
-  std::vector<User> friends;
+  std::vector<User *> friends;
   Wall wall;
   string username;
   string password;

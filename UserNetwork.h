@@ -37,13 +37,14 @@ class UserNetwork{
   User* find(string username);
   User* findByID(int id);
   void printFriends(int id);
+  bool areFriends(int writer, int u);
   
   
   void addFriends(int id1, int id2);
   int getSize(){return users.size();}
 
  private:
-  std::vector<User> users;
+  std::vector<User *> users;
   
   int friendTable[50][50] = {{0}};
 

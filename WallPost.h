@@ -21,12 +21,26 @@ class WallPost{
 
   string getPost(){
 
-    string post = username + "\n" + timePosted + "\n" + contents + "\n\n";
+    string post = username + "\n" + timePosted + "\n" + contents + getResponses()+ "\n\n";
 
     return post;
 
 
   }
+
+  string getResponses(){
+
+    string x = "";
+
+    for(std::vector<WallPostResponse>::iterator it = responses.begin(); it != responses.end(); it++){
+      
+      x+= responses[it];
+      x+= "\n";
+    }
+    return x;
+    
+  }
+		     
   
   void printPost(){
 	cout << "On " << timePosted << "\n" << username << " posted:" << "/n" << contents << endl;
@@ -37,6 +51,7 @@ class WallPost{
   string contents;
   string timePosted;
   string username;
+  std::vector<WallPostResponse> responses;
 };
 
 

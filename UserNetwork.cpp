@@ -55,16 +55,35 @@ int input;
    file.open("friends.txt");
    int i=0;
    int j=0;
+   string line;
+
+
+   
    if(file.is_open()){
-      while(file.eof() == false){
+     /* while (getline(file, line){
+	 stringstream s(line);
+	 string input;
+
+	 while (s >> input){
+	   friendTable[i][j] = input;
+	   j++;
+	 }
+
+	 i++;
+       }*/
+
+
+     
+     while(file.eof() == false){
         file>>input;
+	if(input == '\n')
 	friendTable[i][j] = input;
 	j++;
 	if(j >= 50){
 	   j=0;
 	   i++;
 	}
-      }
+	}
    }
 file.close();
  
@@ -74,6 +93,15 @@ void UserNetwork::addFriends(int id1, int id2){
   friendTable[id1][id2] = 1;
   friendTable[id2][id1] = 1;
 }
+
+void UserNetwork::addFriend(User *user1, string username){
+  User *user2 = find(username);
+  user1->addFriend(user2);
+  
+
+}
+
+
 int UserNetwork::getNextID(){
   return users.size();
 }
@@ -83,7 +111,7 @@ User* UserNetwork::find(string username){
 
 
 	for( unsigned i = 0; i <users.size(); ++i ){
-			if(users[i].getUsername().compare(username) == 0)
+	  if(users[i].getUsername().compare(username) == 0 || users[i].getRealName().compare(username) == 0))
 				return &users[i];
 		}
 return NULL;		
@@ -119,13 +147,20 @@ void UserNetwork::printFriends(int id){
 	}
 }
 
-void UserNetwork::addPost(string writer, string u, string post, string t){
-	for( unsigned i = 0; i <users.size(); ++i ){
-		if(users[i].getUsername().compare(u) == 0){
-			users[i].addWallPost(post, t, writer);
-			return;
-		}
-	}
+void UserNetwork::addPost(User writer, string u, string post, string t){
+
+
+  User *recipient = find(u);
+  if(recipient)
+    if(areFriends(writer.getID(), recipient->getID())
+	recipient->addWallPost(post,t, writer.getRealName();
+}
+
+
+bool UserNetwork::areFriends(int writer, int u){
+
+  return friendTable[writer][u] == 1;
+
 }
 
 
