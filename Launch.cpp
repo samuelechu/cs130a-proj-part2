@@ -18,11 +18,11 @@ void handleChangeUsername();
 void handleChangePassword();
 void handlePrintFriends();
 
-User currentUser;
+User* currentUser ;
 UserNetwork theNetwork;
 int main(){
   theNetwork.loadUsers(); 
-  theNetwork.loadFriends();  
+  //theNetwork.loadFriends();  
   bool loop = true;
   
     cout << "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
@@ -37,7 +37,7 @@ while (loop){
     if(selection[0] == '0'){
       loop = false;
   	theNetwork.saveUsers();
-  	theNetwork.saveFriends();
+  	//theNetwork.saveFriends();
       return 0;
     }
     else if (selection[0] >= '3'){
@@ -130,8 +130,8 @@ void loginUser(){
       }
       else{
         passCheck = true;
-        currentUser = *theUser;
-		currentUser.printWall();
+        currentUser = theUser;
+		currentUser->printWall();
         openUserMenu();
       }
     }
@@ -146,7 +146,7 @@ void openUserMenu(){
 
   bool loop = true;
 
-    cout << "Welcome to VisageLivre, " << currentUser.getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
+    cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
 
 while (loop){
 
@@ -196,28 +196,28 @@ void handleCreatePost(){
 		  cout<<"Write your wall post!"<<endl;
 		  string wallPost;
 		  cin >> wallPost;
-		  theNetwork.addPost(currentUser.getUsername(),friendName, wallPost, "10:35AM");
+		  theNetwork.addPost(currentUser,friendName, wallPost, "10:35AM");
 		  cout << "Post added successfully!"<< endl;
 			  invalid = false;
 	  }
      
     }
-    cout << "Welcome to VisageLivre, " << currentUser.getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
+    cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
 
     return;
 }
 void handleDeletePost(){
   cout << "I'm sorry, that isn't a feature yet :(" << endl << endl;
-  cout << "Welcome to VisageLivre, " << currentUser.getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
+  cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
   
 }
 void handlePrintWall(){
-  currentUser.printWall();
+  currentUser->printWall();
 }
 void handleUserSettings(){
     bool loop = true;
 
-      cout << currentUser.getRealName() << "'s Settings:\nSelect an option to edit:\n(1) Change Username\n(2) Change Password\n(3) Print Friends\n(0) Return\n";
+      cout << currentUser->getRealName() << "'s Settings:\nSelect an option to edit:\n(1) Change Username\n(2) Change Password\n(3) Print Friends\n(0) Return\n";
 
   while (loop){
 
@@ -243,8 +243,8 @@ void handleSettingsSelection(char selection){
       handleChangeUsername();
     if(selection == '2')
 	  handleChangePassword();
-	if(selection == '3')
-		theNetwork.printFriends(currentUser.getID());
+    //if(selection == '3')
+	  //	theNetwork.printFriends(currentUser->getID());
 }
 
 void handleChangeUsername(){
@@ -257,7 +257,7 @@ void handleChangeUsername(){
      string passwordTry;
 
       cin >> passwordTry;
-      if(passwordTry.compare(currentUser.getPassword()) != 0){
+      if(passwordTry.compare(currentUser->getPassword()) != 0){
         invalid = true;
         cout << "Password incorrect!" << endl;
       }
@@ -266,14 +266,14 @@ void handleChangeUsername(){
         invalid = false;
 		cout<<"Enter your desired username:"<<endl;
 		cin>>newName;
-		currentUser.setUsername(newName);
-		cout<<"Username Successfully Changed! Congratulations, " + currentUser.getUsername() + "!"<<endl;
+		currentUser->setUsername(newName);
+		cout<<"Username Successfully Changed! Congratulations, " + currentUser->getUsername() + "!"<<endl;
 	}
 	  
    
     
 }
-cout << currentUser.getRealName() << "'s Settings:\nSelect an option to edit:\n(1) Change Username\n(2) Change Password\n(3) Print Friends\n(0) Return\n";
+cout << currentUser->getRealName() << "'s Settings:\nSelect an option to edit:\n(1) Change Username\n(2) Change Password\n(3) Print Friends\n(0) Return\n";
 
 return;
 }
@@ -288,7 +288,7 @@ void handleChangePassword(){
      string passwordTry;
 
       cin >> passwordTry;
-      if(passwordTry.compare(currentUser.getPassword()) != 0){
+      if(passwordTry.compare(currentUser->getPassword()) != 0){
         invalid = true;
         cout << "Password incorrect!" << endl;
       }
@@ -308,7 +308,7 @@ void handleChangePassword(){
 	      else
 	        cout << "Passwords do not match!" << endl;
 	    }
-		currentUser.setPassword(password2);
+		currentUser->setPassword(password2);
 		cout<<"Password Successfully Changed!"<<endl;
 	}
 }

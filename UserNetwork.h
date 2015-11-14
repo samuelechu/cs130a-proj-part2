@@ -17,11 +17,13 @@ class UserNetwork{
   }
 
   void addUser(string u, string p, string rn, string occ){
-    User newUser = User(u,  p, rn, occ, getNextID());
+    User* newUser = new User(u,  p, rn, occ, getNextID());
     addUser(newUser);
   }
    
  ~UserNetwork(){
+
+   
   }
 
   
@@ -32,23 +34,23 @@ class UserNetwork{
   void saveUsers();
   void loadFriends();
   void saveFriends();
-  void addPost(string writer, string u, string post, string time);
+  void addPost(User* writer, string u, string post, string time);
   int getNextID();
   User* find(string username);
   User* findByID(int id);
   void printFriends(int id);
-  bool areFriends(int writer, int u);
+  bool areFriends(User* user1, string username);
   
   
-  void addFriends(int id1, int id2);
+  void addFriend(User* user1, string username);
+  
   int getSize(){return users.size();}
 
  private:
   std::vector<User *> users;
   
-  int friendTable[50][50] = {{0}};
 
-  void addUser(User& user);
+  void addUser(User* user);
 };
 
 #endif

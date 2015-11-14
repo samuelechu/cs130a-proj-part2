@@ -11,13 +11,13 @@ BINARIES= testUserNetwork testLoadUsers Launch
 
 all: ${BINARIES}
 
-testUserNetwork: testUserNetwork.o UserNetwork.o User.o Wall.o WallPost.o tddFuncs.o
+testUserNetwork: testUserNetwork.o UserNetwork.o User.o Wall.o WallPost.o WallPostResponse.o tddFuncs.o
 	${CXX} $^ -o $@
 
-Launch: Launch.o UserNetwork.o User.o Wall.o WallPost.o
+Launch: Launch.o UserNetwork.o User.o Wall.o WallPost.o WallPostResponse.o
 	${CXX} $^ -o $@
 
-testLoadUsers: testLoadUsers.o UserNetwork.o User.o Wall.o WallPost.o tddFuncs.o
+testLoadUsers: testLoadUsers.o UserNetwork.o User.o Wall.o WallPost.o WallPostResponse.o tddFuncs.o
 	${CXX} $^ -o $@
 
 tests: ${BINARIES}

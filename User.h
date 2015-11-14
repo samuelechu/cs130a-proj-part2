@@ -83,9 +83,12 @@ class User{
   
   void printWall(){wall.printWall();};
 
-  void addFriend(User * friend){
-    friends.push_back(friend);
+  void addFriend(User* friendz){
+    friends.push_back(friendz);
   }
+
+  bool areFriends(string username);
+
   
  private:
 

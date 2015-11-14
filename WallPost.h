@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "WallPostResponse.h"
 using namespace std;
 
 class WallPost{
@@ -32,9 +33,9 @@ class WallPost{
 
     string x = "";
 
-    for(std::vector<WallPostResponse>::iterator it = responses.begin(); it != responses.end(); it++){
+    for (unsigned i = 0; i < responses.size(); i++){
       
-      x+= responses[it];
+      x+= responses[i].getResponse();
       x+= "\n";
     }
     return x;

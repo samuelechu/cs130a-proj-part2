@@ -12,7 +12,7 @@ using namespace std;
 void UserNetwork::saveUsers(){
  string s = "";
 	for( unsigned i = 0; i <users.size(); ++i ){
-		 s+= users[i].getSaveInfo();
+		 s+= users[i]->getSaveInfo();
 	 }
  
 
@@ -31,7 +31,7 @@ void UserNetwork::loadUsers(){
     input += (current + "\n");
     if (myfile.peek() == '\n'){
     	User * newUser = new User(input);
-    	users.push_back(*newUser);
+    	users.push_back(newUser);
 		getline(myfile,input,'\n');
     	input = "";
     }
@@ -39,7 +39,7 @@ void UserNetwork::loadUsers(){
   }
   myfile.close();
 }
-void UserNetwork::saveFriends(){
+/*void UserNetwork::saveFriends(){
   ofstream myfile;
   myfile.open("friends.txt");
   for(int i=0;i<50;i++){
@@ -60,7 +60,7 @@ int input;
 
    
    if(file.is_open()){
-     /* while (getline(file, line){
+     while (getline(file, line){
 	 stringstream s(line);
 	 string input;
 
@@ -70,7 +70,7 @@ int input;
 	 }
 
 	 i++;
-       }*/
+       }
 
 
      
@@ -89,10 +89,7 @@ file.close();
  
 
 }
-void UserNetwork::addFriends(int id1, int id2){
-  friendTable[id1][id2] = 1;
-  friendTable[id2][id1] = 1;
-}
+*/
 
 void UserNetwork::addFriend(User *user1, string username){
   User *user2 = find(username);
@@ -111,8 +108,8 @@ User* UserNetwork::find(string username){
 
 
 	for( unsigned i = 0; i <users.size(); ++i ){
-	  if(users[i].getUsername().compare(username) == 0 || users[i].getRealName().compare(username) == 0))
-				return &users[i];
+	  if(users[i]->getUsername().compare(username) == 0 || users[i]->getRealName().compare(username) == 0)
+				return users[i];
 		}
 return NULL;		
 
@@ -122,44 +119,44 @@ return NULL;
 User* UserNetwork::findByID(int ID){
 
 	for( unsigned i = 0; i <users.size(); ++i ){
-			if(users[i].getID() == ID)
-				return &users[i];
+			if(users[i]->getID() == ID)
+				return users[i];
 		}
 return NULL;		
 
 
 		
 }  
-void UserNetwork::addUser(User& user){
+void UserNetwork::addUser(User* user){
 
 	for( unsigned i = 0; i <users.size(); ++i ){
-	        if(users[i].getUsername().compare(user.getUsername()) == 0) 
+	        if(users[i]->getUsername().compare(user->getUsername()) == 0) 
 	  		  return;
 		}
     users.push_back(user);
 }
 
-void UserNetwork::printFriends(int id){
+/*void UserNetwork::printFriends(int id){
 	for(int i = 0; i<49; i++){
 		if(friendTable[id][i] == 1){
 			cout<<findByID(i)->getRealName()<<endl;
 		}
 	}
-}
+}*/
 
-void UserNetwork::addPost(User writer, string u, string post, string t){
+void UserNetwork::addPost(User* writer, string u, string post, string t){
 
 
   User *recipient = find(u);
   if(recipient)
-    if(areFriends(writer.getID(), recipient->getID())
-	recipient->addWallPost(post,t, writer.getRealName();
+    if(writer->areFriends(u))
+       recipient->addWallPost(post,t, writer->getRealName());
 }
 
 
-bool UserNetwork::areFriends(int writer, int u){
+bool UserNetwork::areFriends(User* user1, string username){
 
-  return friendTable[writer][u] == 1;
+  return user1->areFriends(username);
 
 }
 
@@ -167,13 +164,13 @@ bool UserNetwork::areFriends(int writer, int u){
 void UserNetwork::printUsers(){
 
 	for( unsigned i = 0; i <users.size(); ++i ){
-		cout << users[i].getUsername() << "\n";
+		cout << users[i]->getUsername() << "\n";
 	}
 }
 
 void UserNetwork::printData(){
 	for( unsigned i = 0; i <users.size(); ++i ){
-		cout << users[i].getInfo() << "\n";
+		cout << users[i]->getInfo() << "\n";
 	}
   
 }
@@ -182,7 +179,7 @@ void UserNetwork::printData(){
 
 void UserNetwork::deleteUser(string u){
 	for( unsigned i = 0; i <users.size(); ++i ){
-		if(users[i].getUsername().compare(u) == 0){
+		if(users[i]->getUsername().compare(u) == 0){
 			users.erase(users.begin()+i);
 			return;
 		}
