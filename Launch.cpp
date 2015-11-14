@@ -9,23 +9,25 @@ void createNewUser();
 void loginUser();
 void openUserMenu();
 void handleUserSelection(char a);
-void handleCreatePost();
-void handleDeletePost();
-void handlePrintWall();
+void handleViewFriend();
+void handleViewWall();
 void handleUserSettings();
 void handleSettingsSelection(char a);
 void handleChangeUsername();
 void handleChangePassword();
 void handlePrintFriends();
 
-User* currentUser ;
-UserNetwork theNetwork;
+User* currentUser;
+string welcomeMessage = "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
+string userOptions = "Select an option to begin:\n(1) View Your Wall\n(2) View a Friend's Wall\n(3) User Settings\n(0)Logout\n";
+UserNetwork* theNetwork;
+
 int main(){
-  theNetwork.loadUsers(); 
-  //theNetwork.loadFriends();  
+  theNetwork->loadUsers(); 
+  //theNetwork->loadFriends();  
   bool loop = true;
   
-    cout << "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
+    cout << welcomeMessage;
   
 while (loop){
 
@@ -36,8 +38,8 @@ while (loop){
     
     if(selection[0] == '0'){
       loop = false;
-  	theNetwork.saveUsers();
-  	//theNetwork.saveFriends();
+  	theNetwork->saveUsers();
+  	//theNetwork->saveFriends();
       return 0;
     }
     else if (selection[0] >= '3'){
@@ -95,11 +97,11 @@ void createNewUser(){
   cin >> occupation;
 
   
-  theNetwork.addUser(username, password1, realName, occupation);
+  theNetwork->addUser(username, password1, realName, occupation);
   
   cout << "User successfully created!" << endl << endl;
   
-    cout << "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
+    cout << welcomeMessage;
 }
 
 void loginUser(){
@@ -112,7 +114,7 @@ void loginUser(){
   while(invalid){
   cout << "Enter username." << endl;
   cin >> username;
-  User *theUser = theNetwork.find(username);
+  User *theUser = theNetwork->find(username);
   if(theUser == NULL){
     cout << "User does not exist!" << endl;
     invalid = true;
@@ -131,7 +133,7 @@ void loginUser(){
       else{
         passCheck = true;
         currentUser = theUser;
-		currentUser->printWall();
+		//currentUser->printWall();
         openUserMenu();
       }
     }
@@ -139,14 +141,14 @@ void loginUser(){
  
   }
 
-    cout << "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
+    cout << welcomeMessage;
 }
 
 void openUserMenu(){
 
   bool loop = true;
 
-    cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
+    cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\n" << userOptions;
 
 while (loop){
 
@@ -159,7 +161,7 @@ while (loop){
       loop = false;
       return;
     }
-    else if (selection[0] >= '5'){
+    else if (selection[0] >= '4'){
       cout << "That is not a valid selection." << endl << endl;
     }
   }
@@ -169,51 +171,57 @@ while (loop){
 
 void handleUserSelection(char selection){
   if(selection == '1')
-    handleCreatePost();
+    handleViewFriend();
   if(selection == '2')
-    handleDeletePost();
+    handleViewWall();
   if(selection == '3')
-    handlePrintWall();
-  if(selection == '4')
-	  handleUserSettings();
+	handleUserSettings();
 }
-void handleCreatePost(){
-    bool invalid = true;
+void handleViewFriend(){
 
-      cout << "Who's wall would you like to post on?"<< endl;
-
-  while (invalid){
+      cout << "Who's wall would you like to view?"<< endl;
 
      string friendName;
 
       cin >> friendName;
-	  User *theUser = theNetwork.find(friendName);
+	  User *theUser = theNetwork->find(friendName);
 	  if(theUser == NULL){
 	    cout << "User does not exist!" << endl;
-	    invalid = true;
+	  }
+	  else if(!currentUser->areFriends(friendName)){
+		  cout << "You are not friends with " << friendName << ".\n"
 	  }
 	  else{
-		  cout<<"Write your wall post!"<<endl;
-		  string wallPost;
-		  cin >> wallPost;
-		  theNetwork.addPost(currentUser,friendName, wallPost, "10:35AM");
-		  cout << "Post added successfully!"<< endl;
-			  invalid = false;
+		  theUser->printWall();
+
+			  string selection;
+		  	  cout<<"What would you like to do?\n(1) Respond to a post\n(2) Create new post\n(3) Delete a post\n(0) Return to previous menu"<<endl;
+			  cin << selection;
+			  handleFriendSelection(selection[0], theUser);
 	  }
      
-    }
-    cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
+    cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\n" << userOptions;
 
     return;
 }
-void handleDeletePost(){
+
+void handleFriendSelection(char a, User* friend){
+	if(a == '1')
+		return;
+	if(a == '2'){
+	  string wallPost;
+	  cin >> wallPost;
+	  theNetwork->addPost(currentUser,friend, wallPost, "10:35AM");
+	  cout << "Post added successfully!"<< endl;
+	}
+		
+}
+void handleViewWall(){
   cout << "I'm sorry, that isn't a feature yet :(" << endl << endl;
-  cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\nSelect an option to begin:\n(1) Create Wall Post\n(2) Delete a Wall Post\n(3) Print Wall\n(4) User Settings\n(0)Logout\n";
+  cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\n" << userOptions;
   
 }
-void handlePrintWall(){
-  currentUser->printWall();
-}
+
 void handleUserSettings(){
     bool loop = true;
 
@@ -244,7 +252,7 @@ void handleSettingsSelection(char selection){
     if(selection == '2')
 	  handleChangePassword();
     //if(selection == '3')
-	  //	theNetwork.printFriends(currentUser->getID());
+	  //	theNetwork->printFriends(currentUser->getID());
 }
 
 void handleChangeUsername(){
