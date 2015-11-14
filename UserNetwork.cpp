@@ -39,7 +39,7 @@ void UserNetwork::loadUsers(){
   }
   myfile.close();
 }
-  void UserNetwork::saveFriends(){
+void UserNetwork::saveFriends(){
   ofstream myfile;
   myfile.open("friends.txt");
 
@@ -48,52 +48,41 @@ void UserNetwork::loadUsers(){
   for(unsigned i=0;i<users.size();i++){
     string friends = users[i]->getFriends();
 
-
-
-    for(;j++){
-      myfile<<friendTable[i][j]<<" ";
+      myfile << friends << "\n";
     }
-    myfile<<"\n";
-  }
 }
+
 void UserNetwork::loadFriends(){
-int input;
+
+int curLine = 0;
+User* curUser;
    ifstream file;
    file.open("friends.txt");
-   int i=0;
-   int j=0;
+   
    string line;
 
 
    
    if(file.is_open()){
-     while (getline(file, line){
+     while (getline(file, line)){
+     	curUser = findByID(curLine);
+     	
 	 stringstream s(line);
 	 string input;
 
 	 while (s >> input){
-	   friendTable[i][j] = input;
-	   j++;
+	 	User* friend = findByID(stoi(input));
+	   curUser->addFriend(friend);
+	  
 	 }
-
-	 i++;
+	 curLine++;
        }
 
 
      
-     while(file.eof() == false){
-        file>>input;
-	if(input == '\n')
-	friendTable[i][j] = input;
-	j++;
-	if(j >= 50){
-	   j=0;
-	   i++;
-	}
-	}
    }
 file.close();
- 
+
 
 }
 
