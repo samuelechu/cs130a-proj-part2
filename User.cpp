@@ -24,7 +24,7 @@ string User::getFriends(){
   string friendList = "";
 
   for(unsigned i = 0; i < friends.size(); i++){
-    friendList += friends[i].getID();
+    friendList += friends[i]->getID();
 
     friendList += " ";
     
@@ -32,5 +32,15 @@ string User::getFriends(){
 return friendList;
 
 
+}
 
+void User::deleteFriend(string u){
+  for(unsigned i = 0; i < friends.size(); i++){
+    if(friends[i]->getUsername().compare(u) == 0){
+       friends.erase(friends.begin() + i);
+       return;
+    }
+
+  }
+  
 }

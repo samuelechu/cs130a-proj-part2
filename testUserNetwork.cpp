@@ -24,7 +24,7 @@ int main(){
    
    ASSERT_EQUALS(2,u.getSize());
    
-   cout << "Deleting User: \"Sam\" \n";
+   cout << "\nDeleting User: \"Sam\" \n";
    u.deleteUser("Sam");
 
    cout << "\nFinal List: \n";
@@ -33,5 +33,6 @@ int main(){
 
 
    ASSERT_EQUALS(1,u.getSize());
+   cout << "\n\n";
 
 }

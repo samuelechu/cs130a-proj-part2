@@ -48,9 +48,11 @@ void UserNetwork::saveFriends(){
   
   for(unsigned i=0;i<users.size();i++){
     string friends = users[i]->getFriends();
-
+    cout<< "yoyoyoyoyoy" <<friends;
       myfile << friends << "\n";
     }
+
+  myfile.close();
 }
 
 void UserNetwork::loadFriends(){
@@ -72,8 +74,8 @@ User* curUser;
 	 string input;
 
 	 while (s >> input){
-	 	User* friend = findByID(stoi(input));
-	   curUser->addFriend(friend);
+	 	User* u = findByID(stoi(input));
+	   curUser->addFriend(u);
 	  
 	 }
 	 curLine++;
@@ -90,8 +92,10 @@ file.close();
 
 void UserNetwork::addFriend(User *user1, string username){
   User *user2 = find(username);
-  user1->addFriend(user2);
-  
+  if(!areFriends(user1, username) && user2){
+     user1->addFriend(user2);
+     user2->addFriend(user1);
+  }
 
 }
 
@@ -133,13 +137,17 @@ void UserNetwork::addUser(User* user){
     users.push_back(user);
 }
 
-/*void UserNetwork::printFriends(int id){
-	for(int i = 0; i<49; i++){
-		if(friendTable[id][i] == 1){
-			cout<<findByID(i)->getRealName()<<endl;
-		}
-	}
-}*/
+void UserNetwork::printFriends(User* user){
+
+
+  vector<User*> friends = user->getAdjacent();
+
+  cout << "Friends of " << user->getRealName() << ": \n";
+
+  
+  for(unsigned i = 0; i < friends.size(); i++)
+    cout << friends[i]->getRealName() << "\n";
+}
 
 void UserNetwork::addPost(User* writer, string u, string post, string t){
 
@@ -175,41 +183,139 @@ void UserNetwork::printData(){
 
 
 void UserNetwork::deleteUser(string u){
+  User* curUser;
+
+  
 	for( unsigned i = 0; i <users.size(); ++i ){
 		if(users[i]->getUsername().compare(u) == 0){
-			users.erase(users.begin()+i);
-			return;
+		  
+		  curUser = users[i];
+
+
+
+		  	 vector<User*> friends = curUser->getAdjacent();
+
+			 for(unsigned i = 0; i < friends.size(); i++){
+			   friends[i]->deleteFriend(u);
+			 }
+			 users.erase(users.begin() + i);
+
+
+
+
+
+
+
+		  i = users.size();
 		}
 	}
+
+
+
+
+
+	
 }
 
 
 void UserNetwork::shortestPath(User* source, string username){
 	
 for( unsigned i = 0; i <users.size(); ++i ){
-	        if(users[i]->getUsername().compare(user->getUsername()) == 0) 
-	  		  User* destination = BreadthFirstSearch(source, username);
+  if(users[i]->getUsername().compare(username) == 0) {
+	  		  User* destination = breadthFirstSearch(source, username);
 	  		  cout<< "Depth: " << destination->getDistance()<< "\nPath:\n";
 	  		  
 	  		  
 	  		  vector<User *> path;
 	  		  while (destination){
-	  		  	path.push(destination);
+	  		  	path.push_back(destination);
 	  		  	destination = destination->getParent();
 	  		  }
 	  		  
-	  		  for(unsigned i = path.size() - 1; i >= 0; i--){
+	  		  for(int i = path.size() - 1; i >= 0; i--){
 	  		  	cout << path[i]->getRealName() << " -> ";
 	  		  }
 	  		  
 	  		  return;
-		}	
+  }
+
+
+ }	
 	
 }
 
+void UserNetwork::findAllAtDepth(User* source, int depth){
+
+  User* curUser;
+	
+  for(unsigned i = 0; i < users.size(); i++){
+    users[i]->resetDistance();
+  }
+	
+  queue<User*> q;
+	
+  source->setDistance(0);
+  q.push(source);
+	
+	
+  while (!q.empty()){
+		
+    curUser = q.front();
+    q.pop();
+
+    if (curUser->getDistance() == depth){
 
 
-User* UserNetwork::BreadthFirstSearch(User *source, string username){
+
+
+
+      cout<< "Users at depth " << depth << ":\n";
+
+       
+       for(unsigned i = 0; i < users.size(); i++){
+	 if (users[i]->getDistance() == depth)
+	   cout<< users[i]->getRealName() << "\n";
+       }
+
+  
+       
+
+      return;
+
+
+
+
+
+
+
+
+    }
+		
+    vector<User*> adjacentNodes = curUser->getAdjacent();
+		
+    for(unsigned i = 0; i < adjacentNodes.size(); i++){
+      User * child = adjacentNodes[i];
+			
+      if (child->getDistance() == -1){
+	child->setDistance(curUser->getDistance() + 1);
+	child->setParent(curUser);		
+	q.push(child);
+      }
+			
+			
+			
+			
+    }
+		
+		
+  }
+
+
+  
+}
+
+
+User* UserNetwork::breadthFirstSearch(User *source, string username){
 	
 	User* curUser;
 	
@@ -234,7 +340,7 @@ User* UserNetwork::BreadthFirstSearch(User *source, string username){
 			User * child = adjacentNodes[i];
 			
 			if (child->getDistance() == -1){
-				child->setDistance(curUser->getDistance() + 1));
+				child->setDistance(curUser->getDistance() + 1);
 				child->setParent(curUser);
 				
 				if(child->getUsername().compare(username) == 0)

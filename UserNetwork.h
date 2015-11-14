@@ -38,7 +38,7 @@ class UserNetwork{
   int getNextID();
   User* find(string username);
   User* findByID(int id);
-  void printFriends(int id);
+  void printFriends(User* user);
   bool areFriends(User* user1, string username);
   
   
@@ -46,9 +46,12 @@ class UserNetwork{
   
   int getSize(){return users.size();}
 
+  void shortestPath(User* source, string username);
+  void findAllAtDepth(User* source, int depth);
  private:
   std::vector<User *> users;
-  
+
+  User* breadthFirstSearch(User* source, string username);
 
   void addUser(User* user);
 };
