@@ -63,6 +63,8 @@ void resetDistance(){
 	distance = -1;
 }
 
+User* getParent(){return parent;}
+int getDistance(){return distance;}
 
 void setParent(User* user){
 	parent = user;
@@ -108,7 +110,7 @@ void setDistance(int distance){
   bool areFriends(string username);
   string getFriends();
   
-
+std::vector<User*> getAdjacent(){return friends;}
   
  private:
 
