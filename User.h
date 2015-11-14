@@ -88,6 +88,8 @@ class User{
   }
 
   bool areFriends(string username);
+  string getFriends();
+  
 
   
  private:

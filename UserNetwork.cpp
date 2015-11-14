@@ -39,11 +39,18 @@ void UserNetwork::loadUsers(){
   }
   myfile.close();
 }
-/*void UserNetwork::saveFriends(){
+  void UserNetwork::saveFriends(){
   ofstream myfile;
   myfile.open("friends.txt");
-  for(int i=0;i<50;i++){
-    for(int j=0;j<50;j++){
+
+
+  
+  for(unsigned i=0;i<users.size();i++){
+    string friends = users[i]->getFriends();
+
+
+
+    for(;j++){
       myfile<<friendTable[i][j]<<" ";
     }
     myfile<<"\n";
@@ -89,7 +96,7 @@ file.close();
  
 
 }
-*/
+
 
 void UserNetwork::addFriend(User *user1, string username){
   User *user2 = find(username);

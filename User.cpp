@@ -19,3 +19,15 @@ return false;
 
 
 }
+
+string User::getFriends(){
+  string friendList = "";
+
+  for(unsigned i = 0; i < friends.size(); i++){
+    friendList += friends[i].getID();
+
+    friendList += " ";
+    
+}
+
+}
