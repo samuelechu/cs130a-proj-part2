@@ -29,5 +29,8 @@ string User::getFriends(){
     friendList += " ";
     
 }
+return friendList;
+
+
 
 }

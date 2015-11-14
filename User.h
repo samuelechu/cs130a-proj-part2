@@ -14,12 +14,14 @@ class User{
 	 User(){}
  User(string u, string p, string rn, string occ, int id): username(u),  password(p), realName(rn), occupation(occ), userID(id){
     wall.setUsername(u);
-  //  loadFriends(); 
+    parent = NULL;
+    distance = -1;
+ 
   }
 
  User(string u, string p, string rn, string occ, string wall, int id): username(u),  password(p), realName(rn), occupation(occ), userID(id){
-    // wall.setUsername(u);
-  //  loadFriends();
+  parent = NULL;
+    distance = -1;
   }
 
   User(string input){
@@ -54,6 +56,24 @@ class User{
 
 
   }
+
+void resetDistance(){
+	
+	parent = NULL;
+	distance = -1;
+}
+
+User* getParent(){return parent;}
+int getDistance(){return distance;}
+
+void setParent(User* user){
+	parent = user;
+}
+
+void setDistance(int distance){
+	this->distance = distance;
+}
+
 
   string getInfo(){
     return "Username: " + username + "\nPassword: " + password + "\nFull Name:" + realName + "\nOccupation: " + occupation + "\nWall Posts:\n" + wall.getWall();
@@ -90,7 +110,7 @@ class User{
   bool areFriends(string username);
   string getFriends();
   
-
+std::vector<User*> getAdjacent(){return friends;}
   
  private:
 
@@ -101,6 +121,10 @@ class User{
   string realName;
   string occupation;
   int userID;
+  
+//Breadth First Search 
+  User* parent;
+  int distance;
 
 };
 #endif
