@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
 #include "UserNetwork.h"
 
 
@@ -181,3 +182,84 @@ void UserNetwork::deleteUser(string u){
 		}
 	}
 }
+
+
+void UserNetwork::shortestPath(User* source, string username){
+	
+for( unsigned i = 0; i <users.size(); ++i ){
+	        if(users[i]->getUsername().compare(user->getUsername()) == 0) 
+	  		  User* destination = BreadthFirstSearch(source, username);
+	  		  cout<< "Depth: " << destination->getDistance()<< "\nPath:\n";
+	  		  
+	  		  
+	  		  vector<User *> path;
+	  		  while (destination){
+	  		  	path.push(destination);
+	  		  	destination = destination->getParent();
+	  		  }
+	  		  
+	  		  for(unsigned i = path.size() - 1; i >= 0; i--){
+	  		  	cout << path[i]->getRealName() << " -> ";
+	  		  }
+	  		  
+	  		  return;
+		}	
+	
+}
+
+
+
+User* UserNetwork::BreadthFirstSearch(User *source, string username){
+	
+	User* curUser;
+	
+	for(unsigned i = 0; i < users.size(); i++){
+		users[i]->resetDistance();
+	}
+	
+	queue<User*> q;
+	
+	source->setDistance(0);
+	q.push(source);
+	
+	
+	while (!q.empty()){
+		
+		curUser = q.front();
+		q.pop();
+		
+		vector<User*> adjacentNodes = curUser->getAdjacent();
+		
+		for(unsigned i = 0; i < adjacentNodes.size(); i++){
+			User * child = adjacentNodes[i];
+			
+			if (child->getDistance() == -1){
+				child->setDistance(curUser->getDistance() + 1));
+				child->setParent(curUser);
+				
+				if(child->getUsername().compare(username) == 0)
+					return child;
+				
+				
+				q.push(child);
+			}
+			
+			
+			
+			
+		}
+		
+		
+	}
+	
+	return curUser;
+	
+	
+}
+
+
+
+
+
+
+
