@@ -21,7 +21,7 @@ return false;
 }
 
 vector<int> User::getFriends(){
-  vector<int> friendList(friends.size());
+  vector<int> friendList;
 
   for(unsigned i = 0; i < friends.size(); i++){
 	  friendList.push_back(friends[i]->getID());

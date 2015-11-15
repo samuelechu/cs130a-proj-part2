@@ -44,7 +44,7 @@ class WallPost{
 		     
   
   void printPost(){
-	cout << "On " << timePosted << "\n" << username << " posted:" << "/n" << contents << endl;
+	cout << "On " << timePosted << "\n" << username << " posted:" << "\n" << contents << endl;
   }
   
   

@@ -210,9 +210,12 @@ void handleFriendSelection(char a, User* friends){
 	if(a == '1')
 		return;
 	if(a == '2'){
+		cout<<"Write your post!\n";
 	  string wallPost;
 	  cin >> wallPost;
-	  theNetwork->addPost(friends,currentUser->getRealName(), wallPost, "10:35AM");
+	  friends->addWallPost(wallPost, "10:35AM", currentUser->getRealName());
+	  friends->printWall();
+	  cin.clear();
 	  cout << "Post added successfully!"<< endl;
 	}
 		
