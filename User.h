@@ -108,7 +108,7 @@ void setDistance(int distance){
   }
 
   bool areFriends(string username);
-  string getFriends();
+  std::vector<int> getFriends();
   void deleteFriend(string username);
   
 std::vector<User*> getAdjacent(){return friends;}

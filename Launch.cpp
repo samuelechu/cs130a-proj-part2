@@ -16,15 +16,16 @@ void handleSettingsSelection(char a);
 void handleChangeUsername();
 void handleChangePassword();
 void handlePrintFriends();
+void handleFriendSelection(char a, User* u);
 
 User* currentUser;
 string welcomeMessage = "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
-string userOptions = "Select an option to begin:\n(1) View Your Wall\n(2) View a Friend's Wall\n(3) User Settings\n(0)Logout\n";
-UserNetwork* theNetwork;
+string userOptions = "Select an option to begin:\n(1) View A Friend's Wall\n(2) View Your Wall\n(3) User Settings\n(0)Logout\n";
+UserNetwork* theNetwork = new UserNetwork();
 
 int main(){
   theNetwork->loadUsers(); 
-  //theNetwork->loadFriends();  
+  theNetwork->loadFriends();  
   bool loop = true;
   
     cout << welcomeMessage;
@@ -39,7 +40,7 @@ while (loop){
     if(selection[0] == '0'){
       loop = false;
   	theNetwork->saveUsers();
-  	//theNetwork->saveFriends();
+  	theNetwork->saveFriends();
       return 0;
     }
     else if (selection[0] >= '3'){
@@ -189,14 +190,14 @@ void handleViewFriend(){
 	    cout << "User does not exist!" << endl;
 	  }
 	  else if(!currentUser->areFriends(friendName)){
-		  cout << "You are not friends with " << friendName << ".\n"
+		  cout << "You are not friends with " << friendName << ".\n";
 	  }
 	  else{
 		  theUser->printWall();
 
 			  string selection;
 		  	  cout<<"What would you like to do?\n(1) Respond to a post\n(2) Create new post\n(3) Delete a post\n(0) Return to previous menu"<<endl;
-			  cin << selection;
+			  cin >> selection;
 			  handleFriendSelection(selection[0], theUser);
 	  }
      
@@ -205,13 +206,13 @@ void handleViewFriend(){
     return;
 }
 
-void handleFriendSelection(char a, User* friend){
+void handleFriendSelection(char a, User* friends){
 	if(a == '1')
 		return;
 	if(a == '2'){
 	  string wallPost;
 	  cin >> wallPost;
-	  theNetwork->addPost(currentUser,friend, wallPost, "10:35AM");
+	  theNetwork->addPost(friends,currentUser->getRealName(), wallPost, "10:35AM");
 	  cout << "Post added successfully!"<< endl;
 	}
 		

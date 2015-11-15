@@ -20,13 +20,12 @@ return false;
 
 }
 
-string User::getFriends(){
-  string friendList = "";
+vector<int> User::getFriends(){
+  vector<int> friendList(friends.size());
 
   for(unsigned i = 0; i < friends.size(); i++){
-    friendList += friends[i]->getID();
-
-    friendList += " ";
+	  friendList.push_back(friends[i]->getID());
+	
     
 }
 return friendList;

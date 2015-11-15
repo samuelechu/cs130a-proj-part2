@@ -18,7 +18,7 @@ void UserNetwork::saveUsers(){
  
 
     ofstream myFile;
-	myFile.open("netwerk.txt");
+	myFile.open("network.txt");
     myFile << s;
 	myFile.close();
 }
@@ -44,12 +44,14 @@ void UserNetwork::saveFriends(){
   ofstream myfile;
   myfile.open("friends.txt");
 
-
-  
   for(unsigned i=0;i<users.size();i++){
-    string friends = users[i]->getFriends();
-    cout<< "yoyoyoyoyoy" <<friends;
-      myfile << friends << "\n";
+	  
+    vector<int> friends = users[i]->getFriends();
+		for(unsigned j=0; j<friends.size();j++){
+			myfile << friends[j] << " ";
+		
+		}
+		myfile << "\n";
     }
 
   myfile.close();

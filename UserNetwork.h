@@ -40,7 +40,11 @@ class UserNetwork{
   User* findByID(int id);
   void printFriends(User* user);
   bool areFriends(User* user1, string username);
-  
+  void printTest(){
+	  for(unsigned i=0;i<users.size();i++){
+		  cout << users[i]->getUsername() << users[i]->getID()<<endl;
+	  }
+  }
   
   void addFriend(User* user1, string username);
   

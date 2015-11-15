@@ -10,39 +10,42 @@ int main(){
 
    cout << "Running tests from: " << __FILE__ << endl;
    
-   UserNetwork u;
+   UserNetwork* u = new UserNetwork();
    User* curUser;
 
-   u.loadUsers();
+   u->loadUsers();
 
    
-   u.loadFriends();
+   u->loadFriends();
 
-   curUser = u.find("Sam");
-   u.addFriend(curUser, "Gumpy");
-   u.addFriend(curUser, "Sizor");
-   u.addFriend(curUser, "Andrew");
+   curUser = u->find("Sam");
+   u->addFriend(curUser, "Gumpy");
+   u->addFriend(curUser, "Sizor");
+   u->addFriend(curUser, "Andrew");
 
    
-   u.printFriends(curUser);
-   ASSERT_EQUALS(true, u.areFriends(curUser, "Gumpy"));
+   u->printFriends(curUser);
+   ASSERT_EQUALS(true, u->areFriends(curUser, "Gumpy"));
    
  
     
    
-   ASSERT_EQUALS(3,u.getSize());
+   ASSERT_EQUALS(3,u->getSize());
    
    cout << "Deleting User: \"Gumpy\" \n";
-   u.deleteUser("Gumpy");
+   u->deleteUser("Gumpy");
 
-   u.printFriends(curUser);
-   ASSERT_EQUALS(false, u.areFriends(curUser, "Gumpy"));
+   u->printFriends(curUser);
+   ASSERT_EQUALS(false, u->areFriends(curUser, "Gumpy"));
 
    
    
 
 
-   ASSERT_EQUALS(2,u.getSize());
-   u.saveFriends();
-
+   ASSERT_EQUALS(2,u->getSize());
+   u->saveFriends();
+   
+   u->printTest();
+   
+   
 }

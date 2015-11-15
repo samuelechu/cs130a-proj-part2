@@ -22,7 +22,7 @@ class WallPost{
 
   string getPost(){
 
-    string post = username + "\n" + timePosted + "\n" + contents + getResponses()+ "\n\n";
+    string post = username + "\n" + timePosted + "\n" + contents + getResponses()+ "\n";
 
     return post;
 
