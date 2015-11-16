@@ -20,6 +20,7 @@ void UserNetwork::saveUsers(){
     ofstream myFile;
 	myFile.open("network.txt");
     myFile << s;
+    myFile << "\n\n";
 	myFile.close();
 }
 
@@ -59,6 +60,7 @@ void UserNetwork::loadUsers(){
          getline(myfile, content, '\n');
 		 WallPost* newPost = new WallPost(content, date, user);
 		 while(myfile.peek() == '\t'){
+		   myfile.get();
 			 getline(myfile, resUser, '\n');
 			 getline(myfile, resDate, '\n');
 			 getline(myfile, response, '\n');
@@ -68,7 +70,8 @@ void UserNetwork::loadUsers(){
 		
         newUser->addWallPost(newPost);
 	}
-    
+      users.push_back(newUser);
+      getline(myfile,word,'\n');
   }
   myfile.close();
 }

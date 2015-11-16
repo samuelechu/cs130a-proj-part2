@@ -25,7 +25,8 @@ string userOptions = "Select an option to begin:\n(1) View A Friend's Wall\n(2) 
 UserNetwork* theNetwork = new UserNetwork();
 
 int main(){
-  theNetwork->loadUsers(); 
+  theNetwork->loadUsers();
+  theNetwork->printData();
   theNetwork->loadFriends();  
   bool loop = true;
   

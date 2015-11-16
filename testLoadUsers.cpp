@@ -28,7 +28,7 @@ int main(){
    ASSERT_EQUALS(true, u->areFriends(curUser, "Gumpy"));
    
  
-    
+   u->findAllAtDepth(curUser, 1); 
    
    ASSERT_EQUALS(3,u->getSize());
    
