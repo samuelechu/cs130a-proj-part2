@@ -51,7 +51,7 @@ void Wall::printWall(){
 
   for(it = wallPosts.begin(); it != wallPosts.end(); it++){
     int i = std::distance( wallPosts.begin(), it );
-    wallPosts[i].printPost();
+    wallPosts[i].printPost(i);
   }
 
  

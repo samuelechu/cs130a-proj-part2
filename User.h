@@ -25,7 +25,7 @@ class User{
   }
 
   User(string input){
-    stringstream iss(input);
+   /* stringstream iss(input);
     string word;
     getline(iss, word, '\n');
     this->username  = word;
@@ -46,8 +46,10 @@ class User{
       getline(iss, word, '\n');
       date = word;
       getline(iss, word, '\n');
+	  while(peek())
       addWallPost(word, date, user);
     }
+	  */
   }
 
 
@@ -97,11 +99,19 @@ void setDistance(int distance){
 
   int getID(){return userID;}
   void setID(int id){userID = id;}
+  
+  int getWallLength(){return wall.getSize();}
 
   void addWallPost(string c, string t, string u){wall.insert(c, t, u);}
+  void addWallPost(WallPost* post){wall.insert(post);}
+  void addResponse(int num, string c, string t, string u){wall.addResponse(num, c, t, u);}
   void deleteWallPost(int index) { wall.remove(index);};
   
   void printWall(){wall.printWall();};
+  void printPost(int i){wall.printPost(i);}
+  void printPostWithResponses(int i){wall.printPostWithResponses(i);}
+  
+  WallPost* getPostByNum(int num){return wall.getPostByNum(num);}
 
   void addFriend(User* friendz){
     friends.push_back(friendz);

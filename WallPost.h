@@ -22,11 +22,18 @@ class WallPost{
 
   string getPost(){
 
-    string post = username + "\n" + timePosted + "\n" + contents + getResponses()+ "\n";
+    string post = username + "\n" + timePosted + "\n" + contents +"\n"+ getResponses()+ "\n";
 
     return post;
 
 
+  }
+  void addResponse(WallPostResponse* response){
+	  responses.push_back(*response);
+  }
+  void addResponse(string c, string t, string u){
+	  WallPostResponse* response = new WallPostResponse(c,t,u);
+	  responses.push_back(*response);
   }
 
   string getResponses(){
@@ -34,17 +41,27 @@ class WallPost{
     string x = "";
 
     for (unsigned i = 0; i < responses.size(); i++){
-      
+		x+= "\t";
       x+= responses[i].getResponse();
-      x+= "\n";
     }
     return x;
     
   }
 		     
   
-  void printPost(){
-	cout << "On " << timePosted << "\n" << username << " posted:" << "\n" << contents << endl;
+  void printPost(int i){
+	  string responseNum = " people have responded to this post.";
+	  if(responses.size() == 1)
+		  responseNum = " person has responded to this post.";
+	cout <<"["<<i<<"]\n"<< "On " << timePosted << "\n" << username << " posted:" << "\n" << contents << endl << responses.size() << responseNum << endl;
+  }
+  void printPostWithResponses(){
+  	cout << "On " << timePosted << "\n" << username << " posted:" << "\n" << contents << endl;
+	for(unsigned j = 0; j<responses.size(); j++){
+		cout<<"["<<j<<"]\n";
+		responses[j].printResponse();
+	}
+  
   }
   
   

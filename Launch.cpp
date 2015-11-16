@@ -17,6 +17,7 @@ void handleChangeUsername();
 void handleChangePassword();
 void handlePrintFriends();
 void handleFriendSelection(char a, User* u);
+void handleViewPost(User* u, int postNum);
 
 User* currentUser;
 string welcomeMessage = "Welcome to VisageLivre!\nSelect an option to begin:\n(1) Create New User\n(2) Login Existing User\n(0)Quit\n";
@@ -196,7 +197,7 @@ void handleViewFriend(){
 		  theUser->printWall();
 
 			  string selection;
-		  	  cout<<"What would you like to do?\n(1) Respond to a post\n(2) Create new post\n(3) Delete a post\n(0) Return to previous menu"<<endl;
+		  	  cout<<"What would you like to do?\n(1) View a post\n(2) Create new post\n(3) Delete a post\n(0) Return to previous menu"<<endl;
 			  cin >> selection;
 			  handleFriendSelection(selection[0], theUser);
 	  }
@@ -207,21 +208,59 @@ void handleViewFriend(){
 }
 
 void handleFriendSelection(char a, User* friends){
-	if(a == '1')
-		return;
+	if(a == '1'){
+		cout<<"Which post would you like to view? (0-"<<(friends->getWallLength()-1)<<")\n";
+		int postNum = 0;
+		cin >> postNum;
+		if(postNum < 0 || postNum >= friends->getWallLength())
+			postNum = 0;
+		handleViewPost(friends, postNum);	
+	}	
 	if(a == '2'){
 		cout<<"Write your post!\n";
-	  string wallPost;
-	  cin >> wallPost;
-	  friends->addWallPost(wallPost, "10:35AM", currentUser->getRealName());
-	  friends->printWall();
-	  cin.clear();
-	  cout << "Post added successfully!"<< endl;
+	  	string wallPost;
+	  	cin.clear();
+	  	cin.ignore();
+	  	getline(cin, wallPost);
+	  	cout << wallPost;
+	  	friends->addWallPost(wallPost, "10:35AM", currentUser->getRealName());
+	  	cin.clear();
+	  	cout << "Post added successfully!"<< endl;
 	}
 		
 }
+void handleViewPost(User* user, int postNum){
+	user->printPostWithResponses(postNum);
+	cin.clear();
+	cin.ignore();
+	cout<<"What would you like to do?\n(1) Write Response\n(2) Delete Response\n(0) Return\n";
+	string selection;
+	cin >> selection;
+	if(selection[0] == '0')
+		return;
+	if(selection[0] == '1'){
+		cout<<"Write your response!\n";
+		cin.clear();
+		cin.ignore();
+		string response;
+    	getline(cin, response);
+		user->addResponse(postNum, response, "10:48AM", currentUser->getRealName());
+		cin.clear();
+	}
+	if(selection[0] == '2'){
+		bool loop = true;
+		while(loop){
+			cout<<"Choose a response to delete. (0-"<<(user->getWallLength()-1)<<")\n";
+			int choice=0;
+			cin>>choice;
+			WallPost* post = user->getPostByNum(choice);
+			
+		}
+		
+	}
+}
 void handleViewWall(){
-  cout << "I'm sorry, that isn't a feature yet :(" << endl << endl;
+	currentUser->printWall();
   cout << "Welcome to VisageLivre, " << currentUser->getRealName() << "!\n" << userOptions;
   
 }
@@ -255,8 +294,6 @@ void handleSettingsSelection(char selection){
       handleChangeUsername();
     if(selection == '2')
 	  handleChangePassword();
-    //if(selection == '3')
-	  //	theNetwork->printFriends(currentUser->getID());
 }
 
 void handleChangeUsername(){

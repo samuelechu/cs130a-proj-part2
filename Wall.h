@@ -26,10 +26,19 @@ class Wall{
 
   //  void loadPosts(string posts);
   void insert(string c, string t, string u);
+  void insert(WallPost* post){wallPosts.push_back(*post);}
   void remove(int index);
+  
+  void addResponse(int num, string c, string t, string u){wallPosts[num].addResponse(c,t,u);}
+  
+  int getSize(){return wallPosts.size();}
 
   string getWall();
   void printWall();
+  void printPost(int i){wallPosts[i].printPost(i);}
+  void printPostWithResponses(int i){wallPosts[i].printPostWithResponses();}
+  
+  WallPost* getPostByNum(int num){return &wallPosts[num];}
   
   string getUsername(){return username;}
   void setUsername(string &u){username = u;}

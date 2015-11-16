@@ -16,9 +16,12 @@ class WallPostResponse{
 
   string getResponse(){
 
-    return username + "\n" + timePosted + "\n" + contents + "\n\n";
+    return username + "\n" + timePosted + "\n" + contents + "\n";
   }
 
+  void printResponse(){
+  	cout << "On " << timePosted << "\n" << username << " replied:" << "\n" << contents << endl;
+  }
 
 
  private:

@@ -28,14 +28,46 @@ void UserNetwork::loadUsers(){
   myfile.open("network.txt");
   string input;
   string current;
-  while(getline(myfile, current, '\n')){
-    input += (current + "\n");
-    if (myfile.peek() == '\n'){
-    	User * newUser = new User(input);
-    	users.push_back(newUser);
-		getline(myfile,input,'\n');
-    	input = "";
-    }
+  
+  string username;
+  string password;
+  string realName;
+  string occupation;
+  string word;
+  int userID;
+  
+  while(myfile.peek() !='\n'){
+	  getline(myfile, username, '\n');
+      getline(myfile, password, '\n');
+      getline(myfile, realName,'\n');
+      getline(myfile, occupation, '\n');
+      getline(myfile, word, '\n');
+      userID = atoi(word.c_str());
+	  User* newUser = new User(username, password, realName, occupation, userID);
+	 
+      string date;
+      string user;
+	  string content;   
+	  string resDate;
+	  string resUser;
+	  string response; 
+
+      while(myfile.peek() != '\n'){
+		  
+		 getline(myfile, user, '\n');
+       	 getline(myfile, date, '\n');
+         getline(myfile, content, '\n');
+		 WallPost* newPost = new WallPost(content, date, user);
+		 while(myfile.peek() == '\t'){
+			 getline(myfile, resUser, '\n');
+			 getline(myfile, resDate, '\n');
+			 getline(myfile, response, '\n');
+			 WallPostResponse* newResponse = new WallPostResponse(response, resDate, resUser);
+			 newPost->addResponse(newResponse);
+		 }
+		
+        newUser->addWallPost(newPost);
+	}
     
   }
   myfile.close();
