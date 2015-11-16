@@ -39,12 +39,23 @@ int main(){
    ASSERT_EQUALS(false, u->areFriends(curUser, "Gumpy"));
 
    
-   
+   string username;
+   string realName;
+   string password;
+   string occupation;
 
+   for(int k = 0; k<10000; k++){
+     curUser = u->find("Bob" + std::to_string(k));
+     for(int j = 0; j<100; j++){
+       int random = rand() * 10000;
+       u->addFriend(curUser, "Bob" + std::to_string(random));
+     }
+   }
+   
 
    ASSERT_EQUALS(2,u->getSize());
    u->saveFriends();
-   
+   u->saveUsers();
    u->printTest();
    
    

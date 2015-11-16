@@ -26,7 +26,6 @@ UserNetwork* theNetwork = new UserNetwork();
 
 int main(){
   theNetwork->loadUsers();
-  theNetwork->printData();
   theNetwork->loadFriends();  
   bool loop = true;
   
